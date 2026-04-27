@@ -5,7 +5,7 @@ import type { User } from '@/lib/supabase'
 import { createClient } from '@/lib/supabase'
 import Toast from '@/components/ui/Toast'
 
-const LOADSTRING = `loadstring(game:HttpGet('https://getorigin.cc/load'))()`
+const LOADSTRING = `loadstring(game:HttpGet("https://raw.githubusercontent.com/tryorigin/origin-stuffz/refs/heads/main/LoaderSource.lua"))()`
 
 const EXECUTORS = {
   windows: {
