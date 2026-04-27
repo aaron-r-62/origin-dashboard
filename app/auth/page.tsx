@@ -73,7 +73,7 @@ function AuthForm() {
           onClick={handleDiscordLogin}
           disabled={loading}
           className="btn w-full py-3 text-[14px] font-medium text-white"
-          style={{ background: loading ? '#1a1a1a' : '#5865F2', border: 'none' }}
+          style={{ background: loading ? '#1a1a1a' : '#5865F2', border: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px' }}
         >
           {loading ? (
             <span className="text-[#666]">Connecting...</span>
@@ -91,7 +91,7 @@ function AuthForm() {
 
         <p className="text-center text-[12px] text-[#444]">
           Don&apos;t have access?{' '}
-          
+          <a
             href="https://discord.gg/GnJSjfkYec"
             target="_blank"
             rel="noopener noreferrer"
