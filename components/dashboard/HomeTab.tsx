@@ -20,8 +20,8 @@ interface FieldState {
 
 interface AuthLog {
   id: string
-  action: string
-  created_at: string
+  reason: string // Matches your 'reason' column
+  created_at: string // Matches your 'created_at' column
 }
 
 const ACTION_CONFIG: Record<string, { label: string; color: string; icon: React.ReactNode }> = {
@@ -67,14 +67,14 @@ export default function HomeTab({ user, onUserUpdate, tierConfig }: Props) {
   const showToast = (msg: string, type: 'success' | 'error' | 'info' = 'success') =>
     setToast({ msg, type })
 
-  // Fetch recent auth logs matching the username text field
+  // Updated to match your screenshot: username (text) and reason (text)
   useEffect(() => {
     const supabase = createClient()
     setLogsLoading(true)
     
     supabase
       .from('auth_logs')
-      .select('id, action, created_at')
+      .select('id, reason, created_at')
       .eq('username', user.username) 
       .order('created_at', { ascending: false })
       .limit(3)
@@ -279,8 +279,9 @@ export default function HomeTab({ user, onUserUpdate, tierConfig }: Props) {
         ) : (
           <div className="space-y-2">
             {authLogs.map(log => {
-              const cfg = ACTION_CONFIG[log.action] || {
-                label: log.action,
+              // We use log.reason because that's what your table column is called
+              const cfg = ACTION_CONFIG[log.reason] || {
+                label: log.reason,
                 color: '#888',
                 icon: <Activity size={13} />,
               }
