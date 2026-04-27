@@ -67,20 +67,22 @@ export default function HomeTab({ user, onUserUpdate, tierConfig }: Props) {
   const showToast = (msg: string, type: 'success' | 'error' | 'info' = 'success') =>
     setToast({ msg, type })
 
-  // Fetch recent auth logs for this user
+  // Fetch recent auth logs matching the username text field
   useEffect(() => {
     const supabase = createClient()
+    setLogsLoading(true)
+    
     supabase
       .from('auth_logs')
       .select('id, action, created_at')
-      .eq('user_id', user.id)
+      .eq('username', user.username) 
       .order('created_at', { ascending: false })
       .limit(3)
       .then(({ data }) => {
         setAuthLogs(data || [])
         setLogsLoading(false)
       })
-  }, [user.id])
+  }, [user.username])
 
   const toggleVisibility = (field: string) => {
     setFields(f => ({ ...f, [field]: { ...f[field], visible: !f[field].visible } }))
